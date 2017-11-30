@@ -20,8 +20,13 @@
 #include <fluent-bit/flb_info.h>
 #include <fluent-bit/flb_api.h>
 #include <fluent-bit/flb_mem.h>
+#include <fluent-bit/flb_log.h>
 
 #include <fluent-bit/flb_output.h>
+
+void flb_log(int type, char* logstr) {
+    flb_log_print(type, NULL, 0, logstr);
+}
 
 struct flb_api *flb_api_create()
 {
@@ -34,6 +39,7 @@ struct flb_api *flb_api_create()
     }
 
     api->output_get_property = (char * (*)(char *, void *)) flb_output_get_property;
+    api->log = (void (*)(int, char *)) flb_log;
     return api;
 }
 

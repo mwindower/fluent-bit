@@ -25,6 +25,7 @@
 
 struct flb_api {
     char *(*output_get_property) (char *, void *);
+    void (*log) (int, char *);
 };
 
 #ifdef FLB_CORE
